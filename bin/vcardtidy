@@ -1,0 +1,51 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use OptArgs2;
+use Path::Tiny;
+use Text::vCard::Addressbook;
+
+arg files => (
+    isa     => 'ArrayRef',
+    default => sub { ['-'] },
+    greedy  => 1,
+    comment => 'file to tidy (default is stdin)',
+);
+
+opt help => ( ishelp => 1 );
+
+my $opts = optargs();
+
+foreach my $f ( @{ $opts->{files} } ) {
+    vcardtidy($f);
+}
+
+sub vcardtidy {
+    my $input = shift;
+    my $data;
+    my $file;
+
+    if ( $input eq '-' ) {
+        local $\ = undef;
+        $data = <STDIN>;
+    }
+    else {
+        $file = path($input);
+        $data = $file->slurp_utf8;
+    }
+
+    my $tidy =
+      Text::vCard::Addressbook->new( { 'source_text' => $data } )->export;
+
+    if ( length($tidy) == 0 ) {
+        warn "Invalid VCARD in '$input'\n";
+        $tidy = $data;
+    }
+    if ( $input eq '-' ) {
+        print $tidy;
+    }
+    else {
+        $file->spew_utf8($tidy);
+    }
+}
+
