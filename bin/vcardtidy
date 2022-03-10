@@ -26,26 +26,32 @@ sub vcardtidy {
     my $file;
 
     if ( $input eq '-' ) {
-        local $\ = undef;
+        local $/;
         $data = <STDIN>;
     }
     else {
         $file = path($input);
-        $data = $file->slurp_utf8;
+        $data = $file->slurp;
     }
 
-    my $tidy =
-      Text::vCard::Addressbook->new( { 'source_text' => $data } )->export;
+    my $tidy = eval {
+        Text::vCard::Addressbook->new( { 'source_text' => $data } )->export;
+    };
 
-    if ( length($tidy) == 0 ) {
+    if ($@) {
+        warn "Invalid VCARD in '$input': $@";
+        $tidy = $data;
+    }
+    elsif ( length($tidy) == 0 ) {
         warn "Invalid VCARD in '$input'\n";
         $tidy = $data;
     }
+
     if ( $input eq '-' ) {
         print $tidy;
     }
     else {
-        $file->spew_utf8($tidy);
+        $file->spew( { binmode => ':raw:encoding(UTF-8)' }, $tidy );
     }
 }
 
