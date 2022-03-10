@@ -47,7 +47,7 @@ sub create_t_scripts {
     my $lib   = $root->child('lib');
     my $share = $root->child('share');
     my $t     = $root->child('t');
-    return unless $t->is_dir;
+    mkdir($t);
 
     my @scripts = @_ ? @_ : $bin->children;
 
