@@ -5,6 +5,8 @@ use OptArgs2;
 use Path::Tiny;
 use Text::vCard::Addressbook;
 
+our $VERSION = '1.0.0_1';
+
 arg files => (
     isa     => 'ArrayRef',
     default => sub { ['-'] },
@@ -13,6 +15,16 @@ arg files => (
 );
 
 opt help => ( ishelp => 1 );
+
+opt version => (
+    isa     => 'Flag',
+    alias   => 'V',
+    comment => 'print version information and exit',
+    trigger => sub {
+        require File::Basename;
+        die File::Basename::basename($0) . ' version ' . $VERSION . "\n";
+    },
+);
 
 my $opts = optargs();
 
@@ -54,4 +66,64 @@ sub vcardtidy {
         $file->spew( { binmode => ':raw:encoding(UTF-8)' }, $tidy );
     }
 }
+
+__END__
+
+=head1 NAME
+
+vcardtidy - normalize the format of VCARD files
+
+=head1 VERSION
+
+1.0.0_1 (yyyy-mm-dd)
+
+=head1 SYNOPSIS
+
+    vcardtidy [FILES...] [OPTIONS...]
+
+=head1 DESCRIPTION
+
+B<vcardtidy> formats VCARD files, using L<Text::vCard::Addressbook> to
+normalize field order and capitalization.
+
+By default B<vcardtidy> acts like a filter, reading from C<stdin> and
+writing to C<stdout>. Any file names given as arguments will be tidied
+up in place.
+
+=head1 GLOBAL OPTIONS
+
+=over
+
+=item --help, -h
+
+Print the full usage message and exit.
+
+=item --version, -V
+
+Print the version and exit.
+
+=back
+
+=head1 SUPPORT
+
+This tool is managed via github:
+
+    https://github.com/mlawren/p5-vcardtidy
+
+=head1 SEE ALSO
+
+L<githook-perltidy>(1)
+
+=head1 AUTHOR
+
+Mark Lawrence E<lt>nomad@null.netE<gt>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2022 Mark Lawrence <nomad@null.net>
+
+This program is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation; either version 3 of the License, or (at your
+option) any later version.
 
