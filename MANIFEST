@@ -1,0 +1,11 @@
+.perltidyrc
+.podtidy-opts
+.readme_from
+bin/vcardtidy
+Changes
+cpanfile
+Makefile.PL
+MANIFEST			This list of files
+README
+META.yml                                 Module YAML meta-data (added by MakeMaker)
+META.json                                Module JSON meta-data (added by MakeMaker)

@@ -1,0 +1,43 @@
+NAME
+    vcardtidy - normalize the format of VCARD files
+
+VERSION
+    1.0.0_1 (2022-03-10)
+
+SYNOPSIS
+        vcardtidy [FILES...] [OPTIONS...]
+
+DESCRIPTION
+    vcardtidy formats VCARD files, using Text::vCard::Addressbook to
+    normalize field order and capitalization.
+
+    By default vcardtidy acts like a filter, reading from "stdin" and
+    writing to "stdout". Any file names given as arguments will be
+    tidied up in place.
+
+GLOBAL OPTIONS
+    --help, -h
+        Print the full usage message and exit.
+
+    --version, -V
+        Print the version and exit.
+
+SUPPORT
+    This tool is managed via github:
+
+        https://github.com/mlawren/p5-vcardtidy
+
+SEE ALSO
+    githook-perltidy(1)
+
+AUTHOR
+    Mark Lawrence <nomad@null.net>
+
+COPYRIGHT AND LICENSE
+    Copyright 2022 Mark Lawrence <nomad@null.net>
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 3 of the License, or
+    (at your option) any later version.
+
