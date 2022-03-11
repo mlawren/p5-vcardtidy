@@ -79,7 +79,14 @@ vcardtidy - normalize the format of VCARD files
 
 =head1 SYNOPSIS
 
-    vcardtidy [FILES...] [OPTIONS...]
+  usage: vcardtidy [FILES...] [OPTIONS...]
+
+    Arguments:
+      FILES         Str  file to tidy (default is stdin)
+
+    Options:
+      --help,    -h      print a full help message and exit
+      --version, -V      print version information and exit
 
 =head1 DESCRIPTION
 
