@@ -43,7 +43,7 @@ sub vcardtidy {
     }
     else {
         $file = path($input);
-        $data = $file->slurp;
+        $data = $file->slurp_utf8;
     }
 
     my $tidy = eval {
