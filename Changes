@@ -1,10 +1,4 @@
-1.0.0_2 (yyyy-mm-dd)
-
-    API / Behaviour Changes:
-        - None.
-
-    New Features:
-        - None.
+1.0.0_2 (2022-04-04)
 
     Enhancements:
         - Display usage message on no input
@@ -13,9 +7,6 @@
     Bug Fixes:
         - Slurp files in as utf8
         - Fix up multiple CATEGORIES
-
-    Dependencies:
-        - None.
 
     Packaging:
         - Basic test added
