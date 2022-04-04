@@ -2,6 +2,7 @@
 
 on configure => sub {
     requires 'ExtUtils::MakeMaker::CPANfile' => 0;
+    requires 'Path::Tiny'                    => 0;
 };
 
 on runtime => sub {
