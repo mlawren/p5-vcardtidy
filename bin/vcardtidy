@@ -52,11 +52,11 @@ sub vcardtidy {
 
     if ($@) {
         warn "Invalid VCARD in '$input': $@";
-        $tidy = $data;
+        return;
     }
     elsif ( length($tidy) == 0 ) {
         warn "Invalid VCARD in '$input'\n";
-        $tidy = $data;
+        return;
     }
 
     # Fix for multiple categories
