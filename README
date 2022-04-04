@@ -8,11 +8,12 @@ SYNOPSIS
       usage: vcardtidy [FILES...] [OPTIONS...]
 
         Arguments:
-          FILES         Str  file to tidy (default is stdin)
+          FILES           Str  file to tidy (default is stdin)
 
         Options:
-          --help,    -h      print a full help message and exit
-          --version, -V      print version information and exit
+          --help,      -h      print a full help message and exit
+          --no-update, -U      do not update REV value
+          --version,   -V      print version information and exit
 
 DESCRIPTION
     vcardtidy formats VCARD files, using Text::vCard::Addressbook to
@@ -25,6 +26,10 @@ DESCRIPTION
 GLOBAL OPTIONS
     --help, -h
         Print the full usage message and exit.
+
+    --no-update, -U
+        By default vcardtidy sets a new "REV" timestamp. Use this flag
+        to prevent that.
 
     --version, -V
         Print the version and exit.
