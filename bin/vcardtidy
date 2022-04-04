@@ -59,6 +59,9 @@ sub vcardtidy {
         $tidy = $data;
     }
 
+    # Fix for multiple categories
+    while ( $tidy =~ s/^(CATEGORIES:.*?)\\,/$1,/mg ) { }
+
     if ( $input eq '-' ) {
         print $tidy;
     }

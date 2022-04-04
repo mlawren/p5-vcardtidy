@@ -11,6 +11,7 @@
 
     Bug Fixes:
         - Slurp files in as utf8
+        - Fix up multiple CATEGORIES
 
     Dependencies:
         - None.
