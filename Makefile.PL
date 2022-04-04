@@ -8,7 +8,7 @@ WriteMakefile(
     NAME       => 'App::vcardtidy',
     ABSTRACT   => 'tidy up VCARD files',
     AUTHOR     => 'Mark Lawrence <nomad@null.net>',
-    VERSION    => '1.0.0_1',
+    VERSION    => '1.0.0_2',
     LICENSE    => 'gpl_3',
     EXE_FILES  => ['bin/vcardtidy'],
     test       => { RECURSIVE_TEST_FILES => 1, },
@@ -47,7 +47,7 @@ sub create_t_scripts {
     my $lib   = $root->child('lib');
     my $share = $root->child('share');
     my $t     = $root->child('t');
-    return unless $t->is_dir;
+    mkdir($t);
 
     my @scripts = @_ ? @_ : $bin->children;
 

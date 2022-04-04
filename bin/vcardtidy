@@ -4,17 +4,25 @@ use warnings;
 use OptArgs2;
 use Path::Tiny;
 use Text::vCard::Addressbook;
+use Time::Piece;
 
-our $VERSION = '1.0.0_1';
+our $VERSION = '1.0.0_2';
 
 arg files => (
-    isa     => 'ArrayRef',
-    default => sub { ['-'] },
+    isa => 'ArrayRef',
+    default =>
+      sub { [ ( -t STDIN ) ? ( die OptArgs2::usage(__PACKAGE__) ) : '-' ] },
     greedy  => 1,
     comment => 'file to tidy (default is stdin)',
 );
 
 opt help => ( ishelp => 1 );
+
+opt no_update => (
+    isa     => 'Flag',
+    alias   => 'U',
+    comment => 'do not update REV value'
+);
 
 opt version => (
     isa     => 'Flag',
@@ -26,14 +34,16 @@ opt version => (
     },
 );
 
-my $opts = optargs();
+my $opts    = optargs();
+my $dtstamp = localtime->strftime('%Y-%m-%dT%H%M%SZ');
 
 foreach my $f ( @{ $opts->{files} } ) {
-    vcardtidy($f);
+    vcardtidy( $f, $opts->{no_update} );
 }
 
 sub vcardtidy {
-    my $input = shift;
+    my $input  = shift;
+    my $no_rev = shift;
     my $data;
     my $file;
 
@@ -43,21 +53,37 @@ sub vcardtidy {
     }
     else {
         $file = path($input);
-        $data = $file->slurp;
+        $data = $file->slurp( { binmode => ':raw:encoding(UTF-8)' } );
     }
 
     my $tidy = eval {
-        Text::vCard::Addressbook->new( { 'source_text' => $data } )->export;
+        my $ab    = Text::vCard::Addressbook->new( { 'source_text' => $data } );
+        my $clean = $ab->export;
+
+        my $clean2 = $clean =~ s/^REV:.*\015\012//mr;
+        my $data2  = $data  =~ s/^REV:.*\015\012//mr;
+        if ( not($no_rev) and ( $clean2 eq $clean or $clean2 ne $data2 ) ) {
+            foreach my $vcard ( $ab->vcards ) {
+                $vcard->REV($dtstamp);
+            }
+            $ab->export;
+        }
+        else {
+            $clean;
+        }
     };
 
     if ($@) {
         warn "Invalid VCARD in '$input': $@";
-        $tidy = $data;
+        return;
     }
     elsif ( length($tidy) == 0 ) {
         warn "Invalid VCARD in '$input'\n";
-        $tidy = $data;
+        return;
     }
+
+    # Fix for multiple categories
+    while ( $tidy =~ s/^(CATEGORIES:.*?)\\,/$1,/mg ) { }
 
     if ( $input eq '-' ) {
         print $tidy;
@@ -75,11 +101,19 @@ vcardtidy - normalize the format of VCARD files
 
 =head1 VERSION
 
-1.0.0_1 (2022-03-10)
+1.0.0_2 (2022-04-04)
 
 =head1 SYNOPSIS
 
-    vcardtidy [FILES...] [OPTIONS...]
+  usage: vcardtidy [FILES...] [OPTIONS...]
+
+    Arguments:
+      FILES           Str  file to tidy (default is stdin)
+
+    Options:
+      --help,      -h      print a full help message and exit
+      --no-update, -U      do not update REV value
+      --version,   -V      print version information and exit
 
 =head1 DESCRIPTION
 
@@ -97,6 +131,11 @@ up in place.
 =item --help, -h
 
 Print the full usage message and exit.
+
+=item --no-update, -U
+
+By default B<vcardtidy> sets a new "REV" timestamp. Use this flag to
+prevent that.
 
 =item --version, -V
 

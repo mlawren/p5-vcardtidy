@@ -1,3 +1,16 @@
+1.0.0_2 (2022-04-04)
+
+    Enhancements:
+        - Display usage message on no input
+        - Update REV value on tidy
+
+    Bug Fixes:
+        - Slurp files in as utf8
+        - Fix up multiple CATEGORIES
+
+    Packaging:
+        - Basic test added
+
 1.0.0_1 (2022-03-10)
 
     Initial release

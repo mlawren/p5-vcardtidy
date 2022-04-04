@@ -2,10 +2,18 @@ NAME
     vcardtidy - normalize the format of VCARD files
 
 VERSION
-    1.0.0_1 (2022-03-10)
+    1.0.0_2 (2022-04-04)
 
 SYNOPSIS
-        vcardtidy [FILES...] [OPTIONS...]
+      usage: vcardtidy [FILES...] [OPTIONS...]
+
+        Arguments:
+          FILES           Str  file to tidy (default is stdin)
+
+        Options:
+          --help,      -h      print a full help message and exit
+          --no-update, -U      do not update REV value
+          --version,   -V      print version information and exit
 
 DESCRIPTION
     vcardtidy formats VCARD files, using Text::vCard::Addressbook to
@@ -18,6 +26,10 @@ DESCRIPTION
 GLOBAL OPTIONS
     --help, -h
         Print the full usage message and exit.
+
+    --no-update, -U
+        By default vcardtidy sets a new "REV" timestamp. Use this flag
+        to prevent that.
 
     --version, -V
         Print the version and exit.

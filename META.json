@@ -51,6 +51,6 @@
          "url" : "ssh://git@github.com/mlawren/p5-vcardtidy.git"
       }
    },
-   "version" : "v1.0.0_1",
+   "version" : "v1.0.0_2",
    "x_serialization_backend" : "JSON::PP version 4.02"
 }
