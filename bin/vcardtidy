@@ -6,7 +6,7 @@ use Path::Tiny;
 use Text::vCard::Addressbook;
 use Time::Piece;
 
-our $VERSION = '1.0.0_2';
+our $VERSION = '1.0.0_3';
 
 arg files => (
     isa => 'ArrayRef',
@@ -101,7 +101,7 @@ vcardtidy - normalize the format of VCARD files
 
 =head1 VERSION
 
-1.0.0_2 (2022-04-04)
+1.0.0_3 (2022-04-04)
 
 =head1 SYNOPSIS
 
