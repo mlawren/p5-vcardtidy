@@ -7,7 +7,7 @@
         - None.
 
     Enhancements:
-        - None.
+        - Display usage message on no input
 
     Bug Fixes:
         - Slurp files in as utf8

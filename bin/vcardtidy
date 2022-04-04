@@ -8,8 +8,9 @@ use Text::vCard::Addressbook;
 our $VERSION = '1.0.0_2';
 
 arg files => (
-    isa     => 'ArrayRef',
-    default => sub { ['-'] },
+    isa => 'ArrayRef',
+    default =>
+      sub { [ ( -t STDIN ) ? ( die OptArgs2::usage(__PACKAGE__) ) : '-' ] },
     greedy  => 1,
     comment => 'file to tidy (default is stdin)',
 );
