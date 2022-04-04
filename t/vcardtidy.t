@@ -19,6 +19,8 @@ my $clean_vcf = $tmp->slurp_utf8;
 my $want_vcf  = $want->slurp_utf8;
 
 isnt $dirty_vcf, $clean_vcf, 'not equal to original';
-is $clean_vcf,   $want_vcf,  'matches desired tidyness';
+isnt $clean_vcf, $want_vcf,  'not tidy yet';
+$clean_vcf =~ s/^REV:.*Z\015\012//m;
+is $clean_vcf, $want_vcf, 'but tidy without REV change';
 
 done_testing();

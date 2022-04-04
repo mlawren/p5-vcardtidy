@@ -8,6 +8,7 @@
 
     Enhancements:
         - Display usage message on no input
+        - Update REV value on tidy
 
     Bug Fixes:
         - Slurp files in as utf8

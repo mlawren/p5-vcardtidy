@@ -4,6 +4,7 @@ use warnings;
 use OptArgs2;
 use Path::Tiny;
 use Text::vCard::Addressbook;
+use Time::Piece;
 
 our $VERSION = '1.0.0_2';
 
@@ -27,7 +28,8 @@ opt version => (
     },
 );
 
-my $opts = optargs();
+my $opts    = optargs();
+my $dtstamp = localtime->strftime('%Y-%m-%dT%H%M%SZ');
 
 foreach my $f ( @{ $opts->{files} } ) {
     vcardtidy($f);
@@ -48,7 +50,18 @@ sub vcardtidy {
     }
 
     my $tidy = eval {
-        Text::vCard::Addressbook->new( { 'source_text' => $data } )->export;
+        my $ab    = Text::vCard::Addressbook->new( { 'source_text' => $data } );
+        my $clean = $ab->export;
+
+        if ( $clean ne $data ) {
+            foreach my $vcard ( $ab->vcards ) {
+                $vcard->REV($dtstamp);
+            }
+            $ab->export;
+        }
+        else {
+            $clean;
+        }
     };
 
     if ($@) {
