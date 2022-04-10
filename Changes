@@ -16,7 +16,7 @@
         - None.
 
     Packaging:
-        - None.
+        - Adjust to Github repository name change (removing p5- prefix).
 
 1.0.0 (2022-04-10)
 

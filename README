@@ -37,7 +37,7 @@ GLOBAL OPTIONS
 SUPPORT
     This tool is managed via github:
 
-        https://github.com/mlawren/p5-vcardtidy
+        https://github.com/mlawren/vcardtidy
 
 SEE ALSO
     githook-perltidy(1)
