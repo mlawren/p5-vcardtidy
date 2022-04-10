@@ -2,10 +2,10 @@
 
 ### Test script specific setup ###
 BEGIN {
-    $ENV{PATH} = "/home/mark/src/vcardtidy/_qbiUcpH/t" .':'.$ENV{PATH};
-    $ENV{SHARE_DIR} //= "/home/mark/src/vcardtidy/_qbiUcpH/share";
+    $ENV{PATH} = "/home/mark/src/vcardtidy/cuXP4aQ8/t" .':'.$ENV{PATH};
+    $ENV{SHARE_DIR} //= "/home/mark/src/vcardtidy/cuXP4aQ8/share";
 }
-use lib "/home/mark/src/vcardtidy/_qbiUcpH/lib";
-my $ret = do "/home/mark/src/vcardtidy/_qbiUcpH/bin/vcardtidy";
+use lib "/home/mark/src/vcardtidy/cuXP4aQ8/lib";
+my $ret = do "/home/mark/src/vcardtidy/cuXP4aQ8/bin/vcardtidy";
 die $@ if $@;
 $ret;
