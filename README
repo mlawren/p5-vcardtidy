@@ -24,10 +24,19 @@ DESCRIPTION
     tidied up in place.
 
 GLOBAL OPTIONS
+    --filter, -f PERL
+        Before tidying, evaluate the "PERL" string with $_ set to the
+        input text. Can be used multiple times. This allows you to do
+        things like add a category:
+
+                $ vcardtidy \
+               -f '$_ .= "\nCATEGORIES:\n" unless m/^CATEGORIES:/m' \
+               -f 's/^(CATEGORIES:.*)(\s+)$/$1,NewCat$2/m'
+
     --help, -h
         Print the full usage message and exit.
 
-    --no-update, -U
+    --no-rev, -R
         By default vcardtidy sets a new "REV" timestamp. Use this flag
         to prevent that.
 

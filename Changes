@@ -1,7 +1,7 @@
 1.0.1_1 (yyyy-mm-dd)
 
     API / Behaviour Changes:
-        - None.
+        - rename "--no-update" to "--no-rev" for clarity.
 
     New Features:
         - None.

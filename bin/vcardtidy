@@ -19,9 +19,9 @@ my $opts = optargs2(
             greedy  => 1,
             comment => 'file to tidy (default is stdin)',
         },
-        no_update => {
+        no_rev => {
             isa     => '--Flag',
-            alias   => 'U',
+            alias   => 'R',
             comment => 'do not update REV value'
         },
         version => {
@@ -41,7 +41,7 @@ my $opts = optargs2(
 my $dtstamp = localtime->strftime('%Y-%m-%dT%H%M%SZ');
 
 foreach my $f ( @{ $opts->{files} } ) {
-    vcardtidy( $f, $opts->{no_update} );
+    vcardtidy( $f, $opts->{no_rev} );
 }
 
 sub vcardtidy {
@@ -60,11 +60,11 @@ sub vcardtidy {
     }
 
     my $tidy = eval {
-        my $ab = Text::vCard::Addressbook->new( { 'source_text' => $data } );
+        my $ab    = Text::vCard::Addressbook->new( { 'source_text' => $data } );
         my $clean = $ab->export;
 
         my $clean2 = $clean =~ s/^REV:.*\015\012//mr;
-        my $data2  = $data =~ s/^REV:.*\015\012//mr;
+        my $data2  = $data  =~ s/^REV:.*\015\012//mr;
         if ( not($no_rev) and ( $clean2 eq $clean or $clean2 ne $data2 ) ) {
             foreach my $vcard ( $ab->vcards ) {
                 $vcard->REV($dtstamp);
@@ -115,7 +115,7 @@ vcardtidy - normalize the format of VCARD files
 
     Options:
       --help,      -h      print a full help message and exit
-      --no-update, -U      do not update REV value
+      --no-rev,    -R      do not update REV value
       --version,   -V      print version information and exit
 
 =head1 DESCRIPTION
@@ -131,11 +131,21 @@ up in place.
 
 =over
 
+=item --filter, -f PERL
+
+Before tidying, evaluate the C<PERL> string with C<$_> set to the input
+text. Can be used multiple times.  This allows you to do things like
+add a category:
+
+	$ vcardtidy \
+       -f '$_ .= "\nCATEGORIES:\n" unless m/^CATEGORIES:/m' \
+       -f 's/^(CATEGORIES:.*)(\s+)$/$1,NewCat$2/m'
+
 =item --help, -h
 
 Print the full usage message and exit.
 
-=item --no-update, -U
+=item --no-rev, -R
 
 By default B<vcardtidy> sets a new "REV" timestamp. Use this flag to
 prevent that.
