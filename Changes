@@ -12,6 +12,10 @@
     Bug Fixes:
         - None.
 
+    Code Maintenance:
+        - Use optargs2 syntax
+        - Minor code tidyup
+
     Dependencies:
         - None.
 
