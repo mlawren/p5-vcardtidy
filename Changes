@@ -4,7 +4,8 @@
         - rename "--no-update" to "--no-rev" for clarity.
 
     New Features:
-        - None.
+        - Run Perl code with "--filter" for manual adjustments on the
+          fly.
 
     Enhancements:
         - None.

@@ -24,6 +24,13 @@ my $opts = optargs2(
             alias   => 'R',
             comment => 'do not update REV value'
         },
+        filter => {
+            isa      => '--ArrayRef',
+            isa_name => 'PERL',
+            alias    => 'f',
+            comment  => 'Perl filter(s) to run against $_ first',
+            default  => sub { [] },
+        },
         version => {
             isa     => '--Flag',
             alias   => 'V',
@@ -59,6 +66,8 @@ sub vcardtidy {
         $file = path( $opts->{input} );
         $data = $file->slurp( { binmode => ':raw:encoding(UTF-8)' } );
     }
+
+    $data = App::vcardtidy::run_filters( $data, @{ $opts->{filter} } );
 
     my $tidy = eval {
         my $ab    = Text::vCard::Addressbook->new( { 'source_text' => $data } );
@@ -99,6 +108,17 @@ sub vcardtidy {
     }
 }
 
+package App::vcardtidy;
+
+sub run_filters {
+    local $_ = shift;
+    foreach my $filter (@_) {
+        eval $filter;
+        die qq{filter "$filter" failed:\n$@} if $@;
+    }
+    $_;
+}
+
 __END__
 
 =head1 NAME
@@ -113,13 +133,17 @@ vcardtidy - normalize the format of VCARD files
 
   usage: vcardtidy [FILES...] [OPTIONS...]
 
+    Synopsis:
+      tidy (normalize) VCARD contact files
+
     Arguments:
-      FILES           Str  file to tidy (default is stdin)
+      FILES         Str   file to tidy (default is stdin)
 
     Options:
-      --help,      -h      print a full help message and exit
-      --no-rev,    -R      do not update REV value
-      --version,   -V      print version information and exit
+      --filter,  -f PERL  Perl filter(s) to run against $_ first
+      --help,    -h       print a Help message and exit
+      --no-rev,  -R       do not update REV value
+      --version, -V       print version information and exit
 
 =head1 DESCRIPTION
 
@@ -137,11 +161,18 @@ up in place.
 =item --filter, -f PERL
 
 Before tidying, evaluate the C<PERL> string with C<$_> set to the input
-text. Can be used multiple times.  This allows you to do things like
-add a category:
+text. Can be used multiple times.
+
+You can easily achieve the same effect with tools like sed(1), awk(1)
+or even perl(1) itself. But C<--filter> ensures that you still have a
+valid VCARD afterwards, allowing you to easily iterate while you
+develop your change.
+
+To add a VCARD category for example:
 
 	$ vcardtidy \
        -f '$_ .= "\nCATEGORIES:\n" unless m/^CATEGORIES:/m' \
+       -f 's/^(CATEGORIES:\S+)(\s+)$/$1,$2/m' \
        -f 's/^(CATEGORIES:.*)(\s+)$/$1,NewCat$2/m'
 
 =item --help, -h
