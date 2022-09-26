@@ -57,11 +57,11 @@ sub vcardtidy {
     }
 
     my $tidy = eval {
-        my $ab    = Text::vCard::Addressbook->new( { 'source_text' => $data } );
+        my $ab = Text::vCard::Addressbook->new( { 'source_text' => $data } );
         my $clean = $ab->export;
 
         my $clean2 = $clean =~ s/^REV:.*\015\012//mr;
-        my $data2  = $data  =~ s/^REV:.*\015\012//mr;
+        my $data2  = $data =~ s/^REV:.*\015\012//mr;
         if ( not($no_rev) and ( $clean2 eq $clean or $clean2 ne $data2 ) ) {
             foreach my $vcard ( $ab->vcards ) {
                 $vcard->REV($dtstamp);
