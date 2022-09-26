@@ -41,21 +41,22 @@ my $opts = optargs2(
 my $dtstamp = localtime->strftime('%Y-%m-%dT%H%M%SZ');
 
 foreach my $f ( @{ $opts->{files} } ) {
-    vcardtidy( $f, $opts->{no_rev} );
+    $opts->{input} = $f;
+    vcardtidy($opts);
 }
 
 sub vcardtidy {
-    my $input  = shift;
-    my $no_rev = shift;
+    my $opts = shift;
+
     my $data;
     my $file;
 
-    if ( $input eq '-' ) {
+    if ( $opts->{input} eq '-' ) {
         local $/;
         $data = <STDIN>;
     }
     else {
-        $file = path($input);
+        $file = path( $opts->{input} );
         $data = $file->slurp( { binmode => ':raw:encoding(UTF-8)' } );
     }
 
@@ -65,7 +66,9 @@ sub vcardtidy {
 
         my $clean2 = $clean =~ s/^REV:.*\015\012//mr;
         my $data2  = $data  =~ s/^REV:.*\015\012//mr;
-        if ( not($no_rev) and ( $clean2 eq $clean or $clean2 ne $data2 ) ) {
+        if ( not( $opts->{no_rev} )
+            and ( $clean2 eq $clean or $clean2 ne $data2 ) )
+        {
             foreach my $vcard ( $ab->vcards ) {
                 $vcard->REV($dtstamp);
             }
@@ -77,18 +80,18 @@ sub vcardtidy {
     };
 
     if ($@) {
-        warn "Invalid VCARD in '$input': $@";
+        warn "Invalid VCARD in '$opts->{input}': $@";
         return;
     }
     elsif ( length($tidy) == 0 ) {
-        warn "Invalid VCARD in '$input'\n";
+        warn "Invalid VCARD in '$opts->{input}'\n";
         return;
     }
 
     # Fix for multiple categories
     while ( $tidy =~ s/^(CATEGORIES:.*?)\\,/$1,/mg ) { }
 
-    if ( $input eq '-' ) {
+    if ( $opts->{input} eq '-' ) {
         print $tidy;
     }
     else {
