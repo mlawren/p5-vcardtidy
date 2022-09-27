@@ -37,12 +37,12 @@ GLOBAL OPTIONS
         still have a valid VCARD afterwards, allowing you to easily
         iterate while you develop your change.
 
-        To add a VCARD category for example:
+        To add an additional or missing category for example:
 
                 $ vcardtidy \
                -f '$_ .= "\nCATEGORIES:\n" unless m/^CATEGORIES:/m' \
                -f 's/^(CATEGORIES:\S+)(\s+)$/$1,$2/m' \
-               -f 's/^(CATEGORIES:.*)(\s+)$/$1,NewCat$2/m'
+               -f 's/^(CATEGORIES:.*)(\s+)$/${1}NewCat$2/m'
 
     --help, -h
         Print the full usage message and exit.
