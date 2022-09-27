@@ -8,7 +8,7 @@ use Time::Piece;
 
 our $VERSION = '1.0.1_1';
 
-my $opts = optargs2(
+my $opts = optargs(
     comment => 'tidy (normalize) VCARD contact files',
     optargs => [
         files => {

@@ -14,7 +14,7 @@
         - None.
 
     Code Maintenance:
-        - Use optargs2 syntax
+        - Use new optargs() syntax
         - Minor code tidyup
 
     Dependencies:
