@@ -7,21 +7,14 @@
         - Run Perl code with "--filter" for manual adjustments on the
           fly.
 
-    Enhancements:
-        - None.
-
-    Bug Fixes:
-        - None.
-
     Code Maintenance:
         - Use new optargs() syntax
         - Minor code tidyup
 
-    Dependencies:
-        - None.
-
     Packaging:
         - Adjust to Github repository name change (removing p5- prefix).
+        - Hopefully an empty lib/App/vcardtidy.pm indexes this time in
+          CPAN.
 
 1.0.0 (2022-04-10)
 
