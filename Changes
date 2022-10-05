@@ -1,4 +1,4 @@
-1.0.1_1 (yyyy-mm-dd)
+1.0.1 (yyyy-mm-dd)
 
     API / Behaviour Changes:
         - rename "--no-update" to "--no-rev" for clarity.
