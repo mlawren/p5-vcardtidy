@@ -8,7 +8,7 @@ WriteMakefile(
     NAME       => 'App::vcardtidy',
     ABSTRACT   => 'tidy up VCARD files',
     AUTHOR     => 'Mark Lawrence <nomad@null.net>',
-    VERSION    => '1.0.0',
+    VERSION    => '1.0.1',
     LICENSE    => 'gpl_3',
     EXE_FILES  => ['bin/vcardtidy'],
     test       => { RECURSIVE_TEST_FILES => 1, },
@@ -23,12 +23,12 @@ WriteMakefile(
         #        },
         resources => {
             bugtracker =>
-              { web => 'https//github.com/mlawren/p5-vcardtidy/issues', },
-            homepage   => 'https//github.com/mlawren/p5-vcardtidy',
+              { web => 'https//github.com/mlawren/vcardtidy/issues', },
+            homepage   => 'https//github.com/mlawren/vcardtidy',
             repository => {
                 type => 'git',
-                url  => 'ssh://git@github.com/mlawren/p5-vcardtidy.git',
-                web  => 'https//github.com/mlawren/p5-vcardtidy',
+                url  => 'ssh://git@github.com/mlawren/vcardtidy.git',
+                web  => 'https//github.com/mlawren/vcardtidy',
             }
         },
     },

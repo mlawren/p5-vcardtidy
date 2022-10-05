@@ -1,3 +1,21 @@
+1.0.1 (2022-10-05)
+
+    API / Behaviour Changes:
+        - rename "--no-update" to "--no-rev" for clarity.
+
+    New Features:
+        - Run Perl code with "--filter" for manual adjustments on the
+          fly.
+
+    Code Maintenance:
+        - Use new optargs() syntax
+        - Minor code tidyup
+
+    Packaging:
+        - Adjust to Github repository name change (removing p5- prefix).
+        - Hopefully an empty lib/App/vcardtidy.pm indexes this time in
+          CPAN.
+
 1.0.0 (2022-04-10)
 
     No changes to version 1.0.0_3

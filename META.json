@@ -49,9 +49,9 @@
       "bugtracker" : {},
       "repository" : {
          "type" : "git",
-         "url" : "ssh://git@github.com/mlawren/p5-vcardtidy.git"
+         "url" : "ssh://git@github.com/mlawren/vcardtidy.git"
       }
    },
-   "version" : "v1.0.0",
+   "version" : "v1.0.1",
    "x_serialization_backend" : "JSON::PP version 4.02"
 }
