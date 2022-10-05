@@ -8,7 +8,7 @@ WriteMakefile(
     NAME       => 'App::vcardtidy',
     ABSTRACT   => 'tidy up VCARD files',
     AUTHOR     => 'Mark Lawrence <nomad@null.net>',
-    VERSION    => '1.0.1',
+    VERSION    => '1.0.2_1',
     LICENSE    => 'gpl_3',
     EXE_FILES  => ['bin/vcardtidy'],
     test       => { RECURSIVE_TEST_FILES => 1, },
