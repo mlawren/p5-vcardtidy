@@ -151,22 +151,26 @@ B<vcardtidy> formats VCARD files, using L<Text::vCard::Addressbook> to
 normalize field order and capitalization.
 
 By default B<vcardtidy> acts like a filter, reading from C<stdin> and
-writing to C<stdout>. Any file names given as arguments will be tidied
-up in place.
+writing to C<stdout>.
 
-=head1 GLOBAL OPTIONS
+Any C<FILES...> provided as arguments are tidied up in place B<without
+backup>! Users are encouraged to use a revision control system (e.g.
+Git) or have secure backups.
+
+=head1 OPTIONS
 
 =over
 
 =item --filter, -f PERL
 
 Before tidying, evaluate the C<PERL> string with C<$_> set to the input
-text. Can be used multiple times.
+text. The modified C<$_> value then input to
+L<Text::vCard::Addressbook> for tidying.
 
-You can easily achieve the same effect with tools like sed(1), awk(1)
-or even perl(1) itself. But C<--filter> ensures that you still have a
-valid VCARD afterwards, allowing you to easily iterate while you
-develop your change.
+Tools like sed(1), awk(1) and of course perl(1) are obviously natively
+designed to modify text, in a better way. But C<--filter> ensures that
+you still have a valid VCARD afterwards, allowing you to easily iterate
+while you develop your change.
 
 To add an additional or missing category for example:
 
@@ -198,7 +202,7 @@ This tool is managed via github:
 
 =head1 SEE ALSO
 
-L<githook-perltidy>(1)
+L<githook-perltidy>(1), L<Text::vCard::Addressbook>
 
 =head1 AUTHOR
 

@@ -24,18 +24,22 @@ DESCRIPTION
     normalize field order and capitalization.
 
     By default vcardtidy acts like a filter, reading from "stdin" and
-    writing to "stdout". Any file names given as arguments will be
-    tidied up in place.
+    writing to "stdout".
 
-GLOBAL OPTIONS
+    Any "FILES..." provided as arguments are tidied up in place without
+    backup! Users are encouraged to use a revision control system (e.g.
+    Git) or have secure backups.
+
+OPTIONS
     --filter, -f PERL
         Before tidying, evaluate the "PERL" string with $_ set to the
-        input text. Can be used multiple times.
+        input text. The modified $_ value then input to
+        Text::vCard::Addressbook for tidying.
 
-        You can easily achieve the same effect with tools like sed(1),
-        awk(1) or even perl(1) itself. But "--filter" ensures that you
-        still have a valid VCARD afterwards, allowing you to easily
-        iterate while you develop your change.
+        Tools like sed(1), awk(1) and of course perl(1) are obviously
+        natively designed to modify text, in a better way. But
+        "--filter" ensures that you still have a valid VCARD afterwards,
+        allowing you to easily iterate while you develop your change.
 
         To add an additional or missing category for example:
 
@@ -60,7 +64,7 @@ SUPPORT
         https://github.com/mlawren/vcardtidy
 
 SEE ALSO
-    githook-perltidy(1)
+    githook-perltidy(1), Text::vCard::Addressbook
 
 AUTHOR
     Mark Lawrence <nomad@null.net>
