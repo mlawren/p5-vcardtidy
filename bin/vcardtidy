@@ -19,6 +19,11 @@ my $opts = optargs(
             greedy  => 1,
             comment => 'file to tidy (default is stdin)',
         },
+        do_nothing => {
+            isa     => '--Flag',
+            alias   => 'n',
+            comment => q{don't modify files, only report errors},
+        },
         no_rev => {
             isa     => '--Flag',
             alias   => 'R',
@@ -104,7 +109,8 @@ sub vcardtidy {
         print $tidy;
     }
     else {
-        $file->spew( { binmode => ':raw:encoding(UTF-8)' }, $tidy );
+        $file->spew( { binmode => ':raw:encoding(UTF-8)' }, $tidy )
+          unless $opts->{do_nothing};
     }
 }
 

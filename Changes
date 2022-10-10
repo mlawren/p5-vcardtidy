@@ -8,6 +8,7 @@
 
     Enhancements:
         - Documentation improvements.
+        - New "--do-nothing, -n" option
 
     Bug Fixes:
         - None.
