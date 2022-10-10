@@ -1,26 +1,8 @@
 1.0.2_1 (yyyy-mm-dd)
 
-    API / Behaviour Changes:
-        - None.
-
-    New Features:
-        - None.
-
     Enhancements:
         - Documentation improvements.
         - New "--do-nothing, -n" option
-
-    Bug Fixes:
-        - None.
-
-    Code Maintenance
-        - None.
-
-    Dependencies:
-        - None.
-
-    Packaging:
-        - None.
 
 1.0.1 (2022-10-05)
 
